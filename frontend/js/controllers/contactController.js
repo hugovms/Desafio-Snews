@@ -58,7 +58,6 @@ $scope.submit = function(contact){
 			$scope.errorMessage = 'Error getting contacts.';
 	});
     }
-
-
+    
     $scope.getAllContacts();
 }]);
