@@ -1,6 +1,6 @@
 ﻿# Contacts App
 
-Uma aplicação web simples para gerênciar contatos. Cada contato pode possuir as seguintes informações: nome, gênero, data de nascimento, email e telefone.
+Uma aplicação web simples para gerenciar contatos. Cada contato pode possuir as seguintes informações: nome, gênero, data de nascimento, email e telefone.
 
 ## Front-end
 
