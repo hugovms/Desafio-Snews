@@ -4,7 +4,7 @@ Uma aplicação web simples para gerênciar contatos. Cada contato pode possuir 
 
 ## Front-end
 
-Todo O Front-End utiliza [AngularJs](https://angularjs.org/), para realizar a comunicação com a api 
+Todo O Front-End utiliza [AngularJs](https://angularjs.org/), para realizar a comunicação com a API 
 e utliza do [Material Design Bootstrap](https://mdbootstrap.com/), para realização do Front-end.
 
 Após iniciar a API do back-end é só abrir o Index.html e desfrutar da sua lista de contatos.
