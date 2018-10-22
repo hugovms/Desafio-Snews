@@ -127,7 +127,7 @@
 							  {{errorMessage}}
 							</div>
 							<!-- Form -->
-							<form name="formulario" class="text-center border border-light p-5" ng-submit="submit(contact)">
+							<form name="contactForm" class="text-center border border-light p-5" ng-submit="submit(contact)">
 								<p class="h4 mb-4">Add contact {{contact.name}}</p>
 								<!-- Name -->
 								Name
@@ -149,7 +149,7 @@
 								<!-- Phone -->
 								Phone
 								<input type="number" ng-model="contact.phone" id="phone" class="form-control mb-4" placeholder="(xx)xxxx-xxxx" ng-maxlength=9 ng-minlength=8 required/>
-								<button class="btn btn-indigo" ng-disabled="formulario.$invalid">Save</button>
+								<button class="btn btn-indigo" ng-disabled="contactForm.$invalid">Save</button>
 							</form>
 							<!-- Form end -->
 						</div>
