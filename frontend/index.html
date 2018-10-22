@@ -142,7 +142,7 @@
 								<!--Birthday-->
 								Birthday
 								<input type="date" ng-model="contact.birthday" id="birthday" class="form-control mb-4" placeholder="XX-XX-XXXX" required/>
-								<span ng-class="error" ng-show="formulario.birthday.$error.maxlength">Não é permitido mais que 8 digitos</span>
+								<span ng-class="error" ng-show="formulario.birthday.$error.maxlength">No more than 8 digits allowed</span>
 								<!-- Email -->
 								Email
 								<input type="email" ng-model="contact.email" id="email" class="form-control mb-4" placeholder="E-mail" ng-minlength=5 required>
@@ -168,5 +168,6 @@
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<!-- MDB core JavaScript -->
 	<script type="text/javascript" src="js/mdb.min.js"></script>
+
 	</body>
 </html>
