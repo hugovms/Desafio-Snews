@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-br" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Consumo da API</title>
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<!-- Bootstrap core CSS -->
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<!-- Material Design Bootstrap -->
+	<link href="css/mdb.min.css" rel="stylesheet">
+	<!-- AngularJS -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+	<!-- App and Controllers -->
+	<script src="js/app.js"></script>
+	<script src="js/services/contactAPI.js"></script>
+	<script src="js/directives/directives.js"></script>
+	<script src="js/controllers/contactController.js"></script>
+	<link href="css/styles.css" rel="stylesheet">
+</head>
+<body ng-controller="contactController">
+	 <!--Navbar-->
+	<nav class="navbar navbar-expand-lg navbar-dark indigo mb-4">
+		<!-- Navbar brand -->
+		<a class="navbar-brand" href="#">Contact List</a>
+		<!-- Collapsible content -->
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		</div>
+		<!-- Collapsible content -->
+	</nav>
+	<!--/.Navbar-->
+	<div class="container-fluid" >
+		<div class="row">
+			<div class="col-lg-12" >
+				<div class="alert alert-primary" role="alert" ng-show="message.length">
+					{{message}}
+				</div>
+				<div class="alert alert-danger" role="alert" ng-show="errorMessage.length">
+				  {{errorMessage}}
+				</div>
+				<!--Table-->
+					<table id="tablePreview" class="table">
+						<div class="input-group md-form form-sm form-1 pl-0 search">
+							<div class="input-group-prepend">
+								<span class="input-group-text indigo lighten-3" id="basic-text1"><i class="fa fa-search text-white"
+								aria-hidden="true"></i></span>
+							</div>
+							<!-- Filter Input -->
+							<form>
+								<input ng-model="filter" class="form-control my-0 py-1" type="text" placeholder="Search" aria-label="Search" />
+							</form>
+							<!-- Filter Input end -->
+						</div>
+						<!--Table head-->
+						<thead class="indigo white-text">
+							<tr>
+								<th>Name</th>
+								<th>Gender</th>
+								<th>Birthday</th>
+								<th>Email</th>
+								<th>Phone</th>
+								<th>Edit</th>
+								<th>Delete</th>
+							</tr>
+						</thead>
+						<!--Table head-->
+						<!--Table body-->
+						<tbody>
+							<tr  ng-repeat="contact in contacts | filter: filter">
+								<td ng-show="!managerCtl.edit[contact.id]">{{contact.name}}</td>
+								<td ng-show="!managerCtl.edit[contact.id]">{{contact.gender}}</td>
+								<td ng-show="!managerCtl.edit[contact.id]">{{contact.birthday}}</td>
+								<td ng-show="!managerCtl.edit[contact.id]">{{contact.email}}</td>
+								<td ng-show="!managerCtl.edit[contact.id]">{{contact.phone}}</td>
+								<!-- Input edit form group -->
+								<form name="edit">
+								<td ng-show="managerCtl.edit[contact.id]">
+									<input class="form-control" type="text" ng-model="contact.name" required/>
+								</td>
+								<td ng-show="managerCtl.edit[contact.id]">
+									<select ng-model="contact.gender" class="browser-default custom-select gender-input" >
+										<option value="MALE">Male</option>
+										<option value="FEMALE">Female</option>
+										<option value="OTHER">Other</option>
+									</select>
+								</td>
+								<td ng-show="managerCtl.edit[contact.id]">
+									<input class="form-control" type="text" ng-model="contact.birthday" required/>
+								</td>
+								<td ng-show="managerCtl.edit[contact.id]">
+									<input class="form-control" type="text" ng-model="contact.email" required/>
+								</td>
+								<td ng-show="managerCtl.edit[contact.id]">
+									<input class="form-control" ng-model="contact.phone" type="text" required/>
+								</td>
+								<th>
+									<!-- Save button -->
+									<button ng-show="managerCtl.edit[contact.id]" ng-click="updateContact(contact); managerCtl.edit[contact.id] = !managerCtl.edit[contact.id]" type="button" class="btn float btn-success px-3"><i class="fa fa-check" aria-hidden="true" ng-disabled="edit.$invalid"></i>
+									</button>
+									<!-- Edit button -->
+								<button ng-click="managerCtl.edit[contact.id] = !managerCtl.edit[contact.id]" type="button" class="btn float btn-yellow px-3"><i class="fa fa-gear" aria-hidden="true"></i></button></th>
+								<!-- Remove button -->
+								<td><button data-ng-click="remove(contact)" type="button" class="btn float btn-danger px-3"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
+								</tr>
+							</form>
+							<!-- Edit Form end -->
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<button type="button" class="btn float-fixed btn-indigo" data-toggle="modal" data-target="#basicExampleModal"><i class="fa fa-plus" aria-hidden="true"></i></button>
+			<div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<!-- modal button -->
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+							</button>
+							<!-- Modal button end -->
+						</div>
+						<div class="modal-body">
+							<div class="alert alert-success" role="alert" ng-show="registerMessage.length">
+								{{message}}
+							</div>
+							<div class="alert alert-danger" role="alert" ng-show="errorMessage.length">
+							  {{errorMessage}}
+							</div>
+							<!-- Form -->
+							<form name="formulario" class="text-center border border-light p-5" ng-submit="submit(contact)">
+								<p class="h4 mb-4">Add contact {{contact.name}}</p>
+								<!-- Name -->
+								Name
+								<input type="text" ng-model="contact.name" id="name" class="form-control mb-4" placeholder="Name" required>
+								<!--Gender-->
+								Gender
+								<select class="browser-default custom-select gender-input" ng-model="contact.gender" required>
+									<option value="MALE">Male</option>
+									<option value="FEMALE">Female</option>
+									<option value="OTHER">Other</option>
+								</select>
+								<!--Birthday-->
+								Birthday
+								<input type="date" ng-model="contact.birthday" id="birthday" class="form-control mb-4" placeholder="XX-XX-XXXX" required/>
+								<span ng-class="error" ng-show="formulario.birthday.$error.maxlength">Não é permitido mais que 8 digitos</span>
+								<!-- Email -->
+								Email
+								<input type="email" ng-model="contact.email" id="email" class="form-control mb-4" placeholder="E-mail" ng-minlength=5 required>
+								<!-- Phone -->
+								Phone
+								<input type="number" ng-model="contact.phone" id="phone" class="form-control mb-4" placeholder="(xx)xxxx-xxxx" ng-maxlength=9 ng-minlength=8 required/>
+								<button class="btn btn-indigo" ng-disabled="formulario.$invalid">ENVIAR</button>
+							</form>
+							<!-- Form end -->
+						</div>
+						<div class="modal-footer">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- JQuery -->
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<!-- Bootstrap tooltips -->
+	<script type="text/javascript" src="jspopper.min.js"></script>
+	<!-- Bootstrap core JavaScript -->
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<!-- MDB core JavaScript -->
+	<script type="text/javascript" src="js/mdb.min.js"></script>
+	</body>
+</html>
